@@ -1,0 +1,902 @@
+[
+	{
+		"id": "tt0120737",
+		"key": "tt0120737",
+		"_id": "tt0120737",
+		"movieId": "tt0120737",
+		"type": "Rating",
+		"rating": 8.8,
+		"votes": 1446962
+	},
+	{
+		"id": "tt0133093",
+		"key": "tt0133093",
+		"_id": "tt0133093",
+		"movieId": "tt0133093",
+		"type": "Rating",
+		"rating": 8.7,
+		"votes": 1441344
+	},
+	{
+		"id": "tt0166924",
+		"key": "tt0166924",
+		"_id": "tt0166924",
+		"movieId": "tt0166924",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 281217
+	},
+	{
+		"id": "tt0167260",
+		"key": "tt0167260",
+		"_id": "tt0167260",
+		"movieId": "tt0167260",
+		"type": "Rating",
+		"rating": 8.9,
+		"votes": 1430168
+	},
+	{
+		"id": "tt0167261",
+		"key": "tt0167261",
+		"_id": "tt0167261",
+		"movieId": "tt0167261",
+		"type": "Rating",
+		"rating": 8.7,
+		"votes": 1292839
+	},
+	{
+		"id": "tt0168629",
+		"key": "tt0168629",
+		"_id": "tt0168629",
+		"movieId": "tt0168629",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 90379
+	},
+	{
+		"id": "tt0169102",
+		"key": "tt0169102",
+		"_id": "tt0169102",
+		"movieId": "tt0169102",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 89307
+	},
+	{
+		"id": "tt0172495",
+		"key": "tt0172495",
+		"_id": "tt0172495",
+		"movieId": "tt0172495",
+		"type": "Rating",
+		"rating": 8.5,
+		"votes": 1161031
+	},
+	{
+		"id": "tt0180093",
+		"key": "tt0180093",
+		"_id": "tt0180093",
+		"movieId": "tt0180093",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 675819
+	},
+	{
+		"id": "tt0198781",
+		"key": "tt0198781",
+		"_id": "tt0198781",
+		"movieId": "tt0198781",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 707554
+	},
+	{
+		"id": "tt0208092",
+		"key": "tt0208092",
+		"_id": "tt0208092",
+		"movieId": "tt0208092",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 695561
+	},
+	{
+		"id": "tt0209144",
+		"key": "tt0209144",
+		"_id": "tt0209144",
+		"movieId": "tt0209144",
+		"type": "Rating",
+		"rating": 8.5,
+		"votes": 996060
+	},
+	{
+		"id": "tt0209180",
+		"key": "tt0209180",
+		"_id": "tt0209180",
+		"movieId": "tt0209180",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 3176
+	},
+	{
+		"id": "tt0222012",
+		"key": "tt0222012",
+		"_id": "tt0222012",
+		"movieId": "tt0222012",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 9770
+	},
+	{
+		"id": "tt0242256",
+		"key": "tt0242256",
+		"_id": "tt0242256",
+		"movieId": "tt0242256",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 3868
+	},
+	{
+		"id": "tt0242519",
+		"key": "tt0242519",
+		"_id": "tt0242519",
+		"movieId": "tt0242519",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 45773
+	},
+	{
+		"id": "tt0246578",
+		"key": "tt0246578",
+		"_id": "tt0246578",
+		"movieId": "tt0246578",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 677939
+	},
+	{
+		"id": "tt0253474",
+		"key": "tt0253474",
+		"_id": "tt0253474",
+		"movieId": "tt0253474",
+		"type": "Rating",
+		"rating": 8.5,
+		"votes": 609776
+	},
+	{
+		"id": "tt0264464",
+		"key": "tt0264464",
+		"_id": "tt0264464",
+		"movieId": "tt0264464",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 679907
+	},
+	{
+		"id": "tt0264476",
+		"key": "tt0264476",
+		"_id": "tt0264476",
+		"movieId": "tt0264476",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 2066
+	},
+	{
+		"id": "tt0266543",
+		"key": "tt0266543",
+		"_id": "tt0266543",
+		"movieId": "tt0266543",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 832715
+	},
+	{
+		"id": "tt0266697",
+		"key": "tt0266697",
+		"_id": "tt0266697",
+		"movieId": "tt0266697",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 869155
+	},
+	{
+		"id": "tt0268978",
+		"key": "tt0268978",
+		"_id": "tt0268978",
+		"movieId": "tt0268978",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 740055
+	},
+	{
+		"id": "tt0270053",
+		"key": "tt0270053",
+		"_id": "tt0270053",
+		"movieId": "tt0270053",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 26739
+	},
+	{
+		"id": "tt0276919",
+		"key": "tt0276919",
+		"_id": "tt0276919",
+		"movieId": "tt0276919",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 121929
+	},
+	{
+		"id": "tt0278736",
+		"key": "tt0278736",
+		"_id": "tt0278736",
+		"movieId": "tt0278736",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 9202
+	},
+	{
+		"id": "tt0282864",
+		"key": "tt0282864",
+		"_id": "tt0282864",
+		"movieId": "tt0282864",
+		"type": "Rating",
+		"rating": 8.5,
+		"votes": 2485
+	},
+	{
+		"id": "tt0283509",
+		"key": "tt0283509",
+		"_id": "tt0283509",
+		"movieId": "tt0283509",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 41211
+	},
+	{
+		"id": "tt0287467",
+		"key": "tt0287467",
+		"_id": "tt0287467",
+		"movieId": "tt0287467",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 95064
+	},
+	{
+		"id": "tt0296574",
+		"key": "tt0296574",
+		"_id": "tt0296574",
+		"movieId": "tt0296574",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 12540
+	},
+	{
+		"id": "tt0307385",
+		"key": "tt0307385",
+		"_id": "tt0307385",
+		"movieId": "tt0307385",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 2112
+	},
+	{
+		"id": "tt0309061",
+		"key": "tt0309061",
+		"_id": "tt0309061",
+		"movieId": "tt0309061",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 3632
+	},
+	{
+		"id": "tt0310793",
+		"key": "tt0310793",
+		"_id": "tt0310793",
+		"movieId": "tt0310793",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 132657
+	},
+	{
+		"id": "tt0312859",
+		"key": "tt0312859",
+		"_id": "tt0312859",
+		"movieId": "tt0312859",
+		"type": "Rating",
+		"rating": 8.5,
+		"votes": 5841
+	},
+	{
+		"id": "tt0314067",
+		"key": "tt0314067",
+		"_id": "tt0314067",
+		"movieId": "tt0314067",
+		"type": "Rating",
+		"rating": 8.5,
+		"votes": 11304
+	},
+	{
+		"id": "tt0317705",
+		"key": "tt0317705",
+		"_id": "tt0317705",
+		"movieId": "tt0317705",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 570177
+	},
+	{
+		"id": "tt0317910",
+		"key": "tt0317910",
+		"_id": "tt0317910",
+		"movieId": "tt0317910",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 21087
+	},
+	{
+		"id": "tt0319061",
+		"key": "tt0319061",
+		"_id": "tt0319061",
+		"movieId": "tt0319061",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 382218
+	},
+	{
+		"id": "tt0319736",
+		"key": "tt0319736",
+		"_id": "tt0319736",
+		"movieId": "tt0319736",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 12337
+	},
+	{
+		"id": "tt0325980",
+		"key": "tt0325980",
+		"_id": "tt0325980",
+		"movieId": "tt0325980",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 936766
+	},
+	{
+		"id": "tt0327056",
+		"key": "tt0327056",
+		"_id": "tt0327056",
+		"movieId": "tt0327056",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 378306
+	},
+	{
+		"id": "tt0329393",
+		"key": "tt0329393",
+		"_id": "tt0329393",
+		"movieId": "tt0329393",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 4428
+	},
+	{
+		"id": "tt0338013",
+		"key": "tt0338013",
+		"_id": "tt0338013",
+		"movieId": "tt0338013",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 792691
+	},
+	{
+		"id": "tt0342804",
+		"key": "tt0342804",
+		"_id": "tt0342804",
+		"movieId": "tt0342804",
+		"type": "Rating",
+		"rating": 8.4,
+		"votes": 1652
+	},
+	{
+		"id": "tt0343121",
+		"key": "tt0343121",
+		"_id": "tt0343121",
+		"movieId": "tt0343121",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 8473
+	},
+	{
+		"id": "tt0347048",
+		"key": "tt0347048",
+		"_id": "tt0347048",
+		"movieId": "tt0347048",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 45958
+	},
+	{
+		"id": "tt0347149",
+		"key": "tt0347149",
+		"_id": "tt0347149",
+		"movieId": "tt0347149",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 269225
+	},
+	{
+		"id": "tt0347779",
+		"key": "tt0347779",
+		"_id": "tt0347779",
+		"movieId": "tt0347779",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 2270
+	},
+	{
+		"id": "tt0352248",
+		"key": "tt0352248",
+		"_id": "tt0352248",
+		"movieId": "tt0352248",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 163119
+	},
+	{
+		"id": "tt0358456",
+		"key": "tt0358456",
+		"_id": "tt0358456",
+		"movieId": "tt0358456",
+		"type": "Rating",
+		"rating": 8.7,
+		"votes": 15541
+	},
+	{
+		"id": "tt0361748",
+		"key": "tt0361748",
+		"_id": "tt0361748",
+		"movieId": "tt0361748",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 1070753
+	},
+	{
+		"id": "tt0363163",
+		"key": "tt0363163",
+		"_id": "tt0363163",
+		"movieId": "tt0363163",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 293997
+	},
+	{
+		"id": "tt0363510",
+		"key": "tt0363510",
+		"_id": "tt0363510",
+		"movieId": "tt0363510",
+		"type": "Rating",
+		"rating": 8.4,
+		"votes": 2253
+	},
+	{
+		"id": "tt0364569",
+		"key": "tt0364569",
+		"_id": "tt0364569",
+		"movieId": "tt0364569",
+		"type": "Rating",
+		"rating": 8.4,
+		"votes": 438259
+	},
+	{
+		"id": "tt0364647",
+		"key": "tt0364647",
+		"_id": "tt0364647",
+		"movieId": "tt0364647",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 3378
+	},
+	{
+		"id": "tt0366840",
+		"key": "tt0366840",
+		"_id": "tt0366840",
+		"movieId": "tt0366840",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 7027
+	},
+	{
+		"id": "tt0367110",
+		"key": "tt0367110",
+		"_id": "tt0367110",
+		"movieId": "tt0367110",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 71715
+	},
+	{
+		"id": "tt0367495",
+		"key": "tt0367495",
+		"_id": "tt0367495",
+		"movieId": "tt0367495",
+		"type": "Rating",
+		"rating": 8.8,
+		"votes": 11942
+	},
+	{
+		"id": "tt0368711",
+		"key": "tt0368711",
+		"_id": "tt0368711",
+		"movieId": "tt0368711",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 3246
+	},
+	{
+		"id": "tt0369702",
+		"key": "tt0369702",
+		"_id": "tt0369702",
+		"movieId": "tt0369702",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 71332
+	},
+	{
+		"id": "tt0371392",
+		"key": "tt0371392",
+		"_id": "tt0371392",
+		"movieId": "tt0371392",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 1155
+	},
+	{
+		"id": "tt0372784",
+		"key": "tt0372784",
+		"_id": "tt0372784",
+		"movieId": "tt0372784",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 1149747
+	},
+	{
+		"id": "tt0375611",
+		"key": "tt0375611",
+		"_id": "tt0375611",
+		"movieId": "tt0375611",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 29956
+	},
+	{
+		"id": "tt0376127",
+		"key": "tt0376127",
+		"_id": "tt0376127",
+		"movieId": "tt0376127",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 10839
+	},
+	{
+		"id": "tt0378194",
+		"key": "tt0378194",
+		"_id": "tt0378194",
+		"movieId": "tt0378194",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 589929
+	},
+	{
+		"id": "tt0378647",
+		"key": "tt0378647",
+		"_id": "tt0378647",
+		"movieId": "tt0378647",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 1521
+	},
+	{
+		"id": "tt0379225",
+		"key": "tt0379225",
+		"_id": "tt0379225",
+		"movieId": "tt0379225",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 19370
+	},
+	{
+		"id": "tt0379357",
+		"key": "tt0379357",
+		"_id": "tt0379357",
+		"movieId": "tt0379357",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 1789
+	},
+	{
+		"id": "tt0379370",
+		"key": "tt0379370",
+		"_id": "tt0379370",
+		"movieId": "tt0379370",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 7216
+	},
+	{
+		"id": "tt0379557",
+		"key": "tt0379557",
+		"_id": "tt0379557",
+		"movieId": "tt0379557",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 30499
+	},
+	{
+		"id": "tt0379730",
+		"key": "tt0379730",
+		"_id": "tt0379730",
+		"movieId": "tt0379730",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 1255
+	},
+	{
+		"id": "tt0381061",
+		"key": "tt0381061",
+		"_id": "tt0381061",
+		"movieId": "tt0381061",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 525226
+	},
+	{
+		"id": "tt0381681",
+		"key": "tt0381681",
+		"_id": "tt0381681",
+		"movieId": "tt0381681",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 199511
+	},
+	{
+		"id": "tt0382932",
+		"key": "tt0382932",
+		"_id": "tt0382932",
+		"movieId": "tt0382932",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 551811
+	},
+	{
+		"id": "tt0383846",
+		"key": "tt0383846",
+		"_id": "tt0383846",
+		"movieId": "tt0383846",
+		"type": "Rating",
+		"rating": 8.5,
+		"votes": 8081
+	},
+	{
+		"id": "tt0384116",
+		"key": "tt0384116",
+		"_id": "tt0384116",
+		"movieId": "tt0384116",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 46929
+	},
+	{
+		"id": "tt0385928",
+		"key": "tt0385928",
+		"_id": "tt0385928",
+		"movieId": "tt0385928",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 2444
+	},
+	{
+		"id": "tt0386032",
+		"key": "tt0386032",
+		"_id": "tt0386032",
+		"movieId": "tt0386032",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 70699
+	},
+	{
+		"id": "tt0386064",
+		"key": "tt0386064",
+		"_id": "tt0386064",
+		"movieId": "tt0386064",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 35034
+	},
+	{
+		"id": "tt0393597",
+		"key": "tt0393597",
+		"_id": "tt0393597",
+		"movieId": "tt0393597",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 13625
+	},
+	{
+		"id": "tt0393775",
+		"key": "tt0393775",
+		"_id": "tt0393775",
+		"movieId": "tt0393775",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 7731
+	},
+	{
+		"id": "tt0395169",
+		"key": "tt0395169",
+		"_id": "tt0395169",
+		"movieId": "tt0395169",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 305237
+	},
+	{
+		"id": "tt0396962",
+		"key": "tt0396962",
+		"_id": "tt0396962",
+		"movieId": "tt0396962",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 1219
+	},
+	{
+		"id": "tt0399040",
+		"key": "tt0399040",
+		"_id": "tt0399040",
+		"movieId": "tt0399040",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 1487
+	},
+	{
+		"id": "tt0400234",
+		"key": "tt0400234",
+		"_id": "tt0400234",
+		"movieId": "tt0400234",
+		"type": "Rating",
+		"rating": 8.6,
+		"votes": 15271
+	},
+	{
+		"id": "tt0401085",
+		"key": "tt0401085",
+		"_id": "tt0401085",
+		"movieId": "tt0401085",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 29691
+	},
+	{
+		"id": "tt0401383",
+		"key": "tt0401383",
+		"_id": "tt0401383",
+		"movieId": "tt0401383",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 96932
+	},
+	{
+		"id": "tt0401792",
+		"key": "tt0401792",
+		"_id": "tt0401792",
+		"movieId": "tt0401792",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 705633
+	},
+	{
+		"id": "tt0405094",
+		"key": "tt0405094",
+		"_id": "tt0405094",
+		"movieId": "tt0405094",
+		"type": "Rating",
+		"rating": 8.4,
+		"votes": 309958
+	},
+	{
+		"id": "tt0405159",
+		"key": "tt0405159",
+		"_id": "tt0405159",
+		"movieId": "tt0405159",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 567927
+	},
+	{
+		"id": "tt0405508",
+		"key": "tt0405508",
+		"_id": "tt0405508",
+		"movieId": "tt0405508",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 96347
+	},
+	{
+		"id": "tt0407887",
+		"key": "tt0407887",
+		"_id": "tt0407887",
+		"movieId": "tt0407887",
+		"type": "Rating",
+		"rating": 8.5,
+		"votes": 1032965
+	},
+	{
+		"id": "tt0408664",
+		"key": "tt0408664",
+		"_id": "tt0408664",
+		"movieId": "tt0408664",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 20278
+	},
+	{
+		"id": "tt0410407",
+		"key": "tt0410407",
+		"_id": "tt0410407",
+		"movieId": "tt0410407",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 1087
+	},
+	{
+		"id": "tt0411469",
+		"key": "tt0411469",
+		"_id": "tt0411469",
+		"movieId": "tt0411469",
+		"type": "Rating",
+		"rating": 8.0,
+		"votes": 4248
+	},
+	{
+		"id": "tt0412631",
+		"key": "tt0412631",
+		"_id": "tt0412631",
+		"movieId": "tt0412631",
+		"type": "Rating",
+		"rating": 8.2,
+		"votes": 1140
+	},
+	{
+		"id": "tt0413615",
+		"key": "tt0413615",
+		"_id": "tt0413615",
+		"movieId": "tt0413615",
+		"type": "Rating",
+		"rating": 8.3,
+		"votes": 1203
+	},
+	{
+		"id": "tt0416960",
+		"key": "tt0416960",
+		"_id": "tt0416960",
+		"movieId": "tt0416960",
+		"type": "Rating",
+		"rating": 8.6,
+		"votes": 10155
+	},
+	{
+		"id": "tt0419781",
+		"key": "tt0419781",
+		"_id": "tt0419781",
+		"movieId": "tt0419781",
+		"type": "Rating",
+		"rating": 8.8,
+		"votes": 6419
+	},
+	{
+		"id": "tt0423866",
+		"key": "tt0423866",
+		"_id": "tt0423866",
+		"movieId": "tt0423866",
+		"type": "Rating",
+		"rating": 8.1,
+		"votes": 43799
+	}
+]
