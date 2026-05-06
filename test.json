@@ -7,7 +7,6 @@
     {"path":"/readyz","validation":{"contentType":"text/plain"}},
     {"path":"/version","validation":{"contentType":"text/plain"}},
 
-    {"path":"/api/featured/movie"},
     {"path":"/api/actors"},
     {"path":"/api/movies"},
     {"path":"/api/genres"},

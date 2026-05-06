@@ -66,8 +66,6 @@ as long as every requirement in this document is met.
 - Source of truth: JSON files committed to the repo under `data/`:
   - `data/movies.json`
   - `data/actors.json`
-  - `data/genres.json`
-  - `data/featured.json`
   - `data/ratings.json`
 - Files are UTF-8, pretty-printed for diff-friendliness, with stable key ordering.
 - Schemas are defined in §5.5 and must match the API response shapes in §6.
@@ -75,10 +73,8 @@ as long as every requirement in this document is met.
 ### 5.2 Packaging
 
 - The JSON files under `data/` are copied into the container image at `/data` as part of `docker build` (e.g. `COPY data/ /data/`).
-- No `PersistentVolumeClaim`, init job, or external volume is used; updating the dataset means rebuilding the image.
-- Path configurable via `MOVIES_DATA_DIR` env var (default `/data`).
 
-### 5.3 Loading & indexing
+### 5.3 Loading
 
 - On startup the service loads all files into in-memory immutable collections.
 
@@ -102,7 +98,6 @@ All endpoints are read-only `GET`. JSON responses use `application/json; charset
 | GET    | `/api/actors`                 | Query: `q`, `pageNumber`, `pageSize`                                  |
 | GET    | `/api/actors/{id}`            | 404 on miss; id format `nm########`                                   |
 | GET    | `/api/genres`                 | Returns array of strings                                              |
-| GET    | `/api/featured/movie`         | Weighted random pick from the featured set                            |
 | GET    | `/healthz`                    | Plaintext (`pass` / `warn` / `fail`)                                  |
 | GET    | `/version`                    | Plaintext semver only, e.g. `1.2.3`                                   |
 | GET    | `/metrics`                    | Prometheus exposition                                                 |
@@ -115,8 +110,8 @@ Validation rules (must return HTTP 400 on violation):
 
 - `pageNumber` ∈ [1, 10000]
 - `pageSize` ∈ [1, 1000]
-- `year` ∈ [1874, currentYear + 5] or 0
-- `rating` ∈ [0.0, 10.0]
+- `year` - examine data
+- `rating` - examine data
 - `q` length ∈ [2, 20] when present
 - `actorId` matches `^nm\d{5,9}$`; `movieId` matches `^tt\d{5,9}$`
 
@@ -128,8 +123,6 @@ Validation rules (must return HTTP 400 on violation):
 1.2.3
 ```
 
-- The version is injected at build time via ldflags / env / equivalent.
-- For dirty local builds, `0.0.0-dev` is acceptable.
 - The endpoint must respond `200` even before the dataset has finished loading (it does not depend on `/readyz`).
 
 ## 7. Observability
@@ -138,37 +131,17 @@ Validation rules (must return HTTP 400 on violation):
 
 Exposed at `/metrics` in Prometheus text exposition format. Implementers should use the idiomatic Prometheus client library for their language.
 
-Required metrics:
-
-| Metric                               | Type      | Labels                               |
-|--------------------------------------|-----------|--------------------------------------|
-| `http_requests_total`                | counter   | `method`, `route`, `status`          |
-| `http_request_duration_seconds`      | histogram | `method`, `route`, `status`          |
-| `http_requests_in_flight`            | gauge     | —                                    |
-| `movies_dataset_records`             | gauge     | `kind` (`movies`/`actors`/...)       |
-| Process/runtime metrics              | (default) | language-appropriate (GC, CPU, RSS, threads, FDs) |
-
-Histogram buckets for `http_request_duration_seconds` (seconds): `0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10`.
-
 ### 7.2 Structured logging
 
 - Logs written to **stdout** as one JSON object per line.
-- Required fields: `ts` (RFC3339 nanos), `level`, `msg`, `requestId`, `route`, `method`, `status`, `elapsed_ms`, `remote_ip`, `user_agent`.
 - Levels: `debug`, `info`, `warn`, `error`. Configurable via `MOVIES_LOG_LEVEL` (default `info`).
 - No PII; query strings are logged but request bodies are not (service is GET-only).
 - Log schema is language-agnostic — any library is acceptable as long as the field names match.
 
 ### 7.3 Grafana dashboard
 
-- Provisioned via ConfigMap (`grafana-dashboards`) and Grafana's `dashboards` provisioning.
-- A `prometheus` datasource is provisioned via ConfigMap pointing at the in-cluster Prometheus service.
-- Default dashboard `movies-overview.json` panels:
-  - RPS by route
-  - p50 / p95 / p99 latency by route
-  - Error rate (5xx, 4xx)
-  - In-flight requests
-  - Dataset record counts and load time
-  - Process CPU, RSS, and language-runtime panels (GC, threads — whichever apply)
+- Provisioned automatically
+- A `prometheus` datasource is provisioned automatically
 - Anonymous viewer access enabled for local dev; admin password set via env in dev overlay only.
 
 ## 8. Kubernetes Manifests
@@ -188,10 +161,11 @@ Every deployable component (movies-api, Prometheus, Grafana, and any future addi
 ## 9. Build & Packaging
 
 - Single multi-stage `Dockerfile` producing a minimal runtime image (distroless or Alpine equivalent for the chosen language).
-- Image must be **< 150 MB** uncompressed.
 - Image runs as a **non-root** user.
-- Build/test commands are exposed via the language's idiomatic tooling (e.g. `go test`, `cargo test`, `dotnet test`, `pnpm test`). A `Makefile` or task runner is optional; full automation of the cluster bring-up is **not** required.
-- A `devcontainer.json` and/or `flake.nix` is encouraged but not required.
+- Build/test commands are exposed via the language's idiomatic tooling
+- A `Makefile` is optional
+- full automation of the cluster bring-up is **not** required.
+- A `devcontainer.json` is encouraged but not required.
 
 ### 9.1 Local dev loop (documented in README)
 
@@ -202,30 +176,23 @@ The README must walk a new contributor through the following steps. They may be 
 ### 10.1 Unit tests
 
 - Idiomatic unit-test framework for the chosen language. Cover:
-  - File loader (valid YAML/JSON, malformed, missing files).
-  - Index correctness (lookup by id, filtering, pagination boundaries).
-  - Input validation per §6 rules.
-  - HTTP handler routing/serialization.
 - Coverage target: ≥ 80% line coverage on data and HTTP layers.
 
 ### 10.2 Integration tests
 
-- In-process HTTP tests against a fixture dataset under `tests/fixtures/`.
-- Run on every PR.
+- In-process HTTP tests against a known dataset
 
 ### 10.3 End-to-end / contract tests
 
-- A Web Validate suite committed under `tests/webv/` (`baseline.json`, `benchmark.json`) executed against the in-cluster service as part of the inner-loop dev process (§12).
+- A validation suite executed against the in-cluster service as part of the inner-loop dev process (§12).
 - Suite must cover every endpoint in §6 plus negative cases for each validation rule.
 
 ### 10.4 Benchmarks
 
-- Micro-benchmarks for hot paths (lookup, filter, pagination) using the language's standard benchmarking tool (e.g. `go test -bench`, `cargo bench`, BenchmarkDotNet, `pytest-benchmark`).
 - Performance targets:
   - p95 `/api/movies` < 50 ms in-cluster
   - p95 `/api/movies/{id}` < 10 ms
   - Sustained 500 RPS on a single 500m-CPU pod with < 1% error rate
-- The benchmark run produces a markdown report under `bench/reports/` committed alongside the change.
 
 ## 11. Configuration
 
@@ -252,21 +219,18 @@ Additional rules:
 
 ## 12. Inner-Loop Dev Process
 
-No CI/CD pipeline is required. The contract is a **repeatable, fully local inner loop** that any contributor can execute on their workstation against the local k3s/k3d cluster from §9.1. The loop must be runnable end-to-end in a few minutes and produce reproducible results.
+The contract is a **repeatable, fully local inner loop** that any contributor can execute on their workstation against the local k3s/k3d cluster from §9.1. The loop must be runnable end-to-end in a few minutes and produce reproducible results.
 
 For each iteration:
 
 1. **Make a change** to source, manifests, or data files.
-2. **Bump the version** (semver in the build metadata; the new value must show up at `GET /version`). Each loop iteration produces a distinct image tag, e.g. `movies-api:0.3.4` — never overwrite `:latest` in the inner loop.
-3. **Build the image** with the new tag and import it into the local cluster (`docker build` + `k3d image import`, or equivalent).
-4. **Deploy the new version** by updating the image tag in the dev overlay and applying the Kustomization (`kubectl apply -k deploy/k8s/overlays/dev`); confirm with `kubectl rollout status deploy/movies-api`.
-5. **Verify the version is live**: `curl $BASE/version` returns the new semver.
-6. **Run validation tests** against the in-cluster service:
-   - Web Validate baseline + benchmark suites (`tests/webv/baseline.json`, `tests/webv/benchmark.json`).
-   - k6 smoke load (`tests/load/movies.js`) — may run as an in-cluster `Job` or from the host.
-   - Tests must target the in-cluster service via the Ingress / port-forward, not an in-process test server.
-7. **Inspect metrics on the Grafana dashboard**: open the provisioned `movies-overview` dashboard and confirm the run is visible — RPS, latency percentiles, error rate, and dataset record counts all reflect the just-completed test run.
-8. **Iterate** (back to step 1) or **tear down** (`k3d cluster delete movies`).
+2. **Bump the version**
+3. **Build the image**
+4. **Deploy the new version**
+5. **Verify the version is live**
+6. **Run validation tests**
+7. **Inspect metrics on the Grafana dashboard**
+8. **Iterate**
 
 Requirements:
 
@@ -280,7 +244,6 @@ Requirements:
 - NetworkPolicy: movies-api ingress only from the Ingress controller and Prometheus pod.
 - No secrets are expected at runtime (data files are public catalog data). If a secret becomes necessary (e.g. Grafana admin password, OTLP auth token), it must be delivered via a native Kubernetes `Secret` referenced by `envFrom`/`valueFrom.secretKeyRef` or a projected volume — never baked into images, ConfigMaps, or repo files.
 - Dependency scanning via the language's standard auditor (run locally as part of the inner loop).
-- SBOM (SPDX or CycloneDX) can be generated locally on demand.
 
 ## 14. Acceptance Criteria
 
