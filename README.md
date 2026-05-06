@@ -108,8 +108,8 @@ All endpoints are read-only `GET`. JSON responses use `application/json; charset
 
 Validation rules (must return HTTP 400 on violation):
 
-- `pageNumber` ∈ [1, 10000]
-- `pageSize` ∈ [1, 1000]
+- `pageNumber` ∈ [1, 10000] (default: `1` when omitted)
+- `pageSize` ∈ [1, 1000] (default: `25` when omitted)
 - `year` - examine data
 - `rating` - examine data
 - `q` length ∈ [2, 20] when present
