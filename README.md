@@ -1,256 +1,100 @@
-# Movies App — Specification (Draft)
+# Movies — Sessions + RPI Experiment
 
-**Status:** Draft v0.3
-**Date:** 2026-05-05
+A small Kubernetes-native HTTP API. The interesting thing isn't the API — it's *how you build it*.
 
-## 1. Overview
-
-Build a small, self-contained, Kubernetes-native HTTP API that serves a catalog
-of movies and actors from local data files. The service exposes a read-only
-REST API, Prometheus metrics, and structured JSON logs. Prometheus and Grafana
-run alongside the service in the same cluster, with a pre-provisioned Grafana
-dashboard.
+You are participating in an experiment to test whether a deliberate session-based AI workflow produces faster, more honest engineering than ad-hoc prompting. Your run is one data point.
 
-The implementation is greenfield. The implementation language and HTTP
-framework are **deliberately unspecified** — any stack (Go + chi, Rust + axum,
-Python + FastAPI, TypeScript + Fastify, .NET, etc.) is acceptable
-as long as every requirement in this document is met.
-
-## 2. Goals
+---
 
-- Implement the public REST contract (paths, query params, status codes, JSON shapes) defined in §6.
-- Run on a single-node **k3s** cluster (and any conformant Kubernetes: k3d, kind, minikube, AKS, EKS, GKE).
-- Serve data from versioned local JSON files baked into the container image at `/data` during `docker build`.
-- First-class observability: Prometheus metrics, structured JSON logs, Grafana dashboards.
-- Reproducible local dev loop: bringing up the full stack on a local k3s/k3d cluster is documented step-by-step in the README (see §9.1).
-- Provide a Web Validate-compatible end-to-end test suite that runs against the in-cluster service as part of the inner-loop dev process (§12).
+## Read these in order
 
-## 3. Non-Goals
+| # | File | What it gives you | Time |
+|---|---|---|---|
+| 1 | [EXPERIMENT.md](EXPERIMENT.md) | The hypothesis, ground rules, what we measure, how to submit | 5 min |
+| 2 | [METHODOLOGY.md](METHODOLOGY.md) | Sessions + RPI + the fit check, with a worked example | 10 min |
+| 3 | [spec.md](spec.md) | The Movies API spec — your build target | 10 min |
+| 4 | [session-log.md](session-log.md) | The log template you'll fill in as you go | skim |
 
-- No multi-tenant auth, RBAC, or user management.
-- No write APIs — the service is read-only.
-- No external/cloud secrets manager integration. If a runtime secret is ever needed, it is supplied via a native Kubernetes `Secret` (env or projected volume) — no Vault, Key Vault, AWS Secrets Manager, etc.
-- No horizontal data sharding — the dataset is small and fits in memory.
+If you skip step 1 or 2, you'll do the experiment wrong and your data won't count. The whole point is the methodology.
 
-## 4. Architecture
+---
 
-```
-                ┌────────────────────────────────────────────┐
-                │              Kubernetes Cluster            │
-                │                                            │
-   client ──►   │  Ingress ──► movies-api Deployment         │
-                │                 │                          │
-                │                 ├─ /metrics  (Prometheus)  │
-                │                 ├─ /healthz  (liveness)    │
-                │                 └─ /readyz   (readiness)   │
-                │                                            │
-                │  Prometheus Deployment ──► scrapes /metrics│
-                │  Grafana Deployment    ──► reads Prom DS   │
-                │                                            │
-                │  ConfigMap: grafana-dashboards             │
-                └────────────────────────────────────────────┘
-```
+## What "done" looks like
 
-### 4.1 Components
+A `1.0.0` tag on your fork where every checkbox in [spec.md §14](spec.md#14-acceptance-criteria) is green on a freshly-wiped local k3s cluster.
 
-| Component   | Purpose                                     | Image                              |
-|-------------|---------------------------------------------|------------------------------------|
-| movies-api  | The Web API (language/framework of choice)  | `movies-api:<tag>` (built locally) |
-| Prometheus  | Scrapes `/metrics` every 15s                | `prom/prometheus:latest`           |
-| Grafana     | Dashboards + Prometheus datasource          | `grafana/grafana:latest`           |
+Expect this to take **6–10 sessions of 90–120 minutes each**, ~12–20 hours of focused time over 2–4 weeks. If your first session goes 5 hours, you skipped the fit check. Re-read [METHODOLOGY.md](METHODOLOGY.md).
 
-## 5. Data Layer
+---
 
-### 5.1 Storage format
+## Step-by-step: getting started
 
-- Source of truth: JSON files committed to the repo under `data/`:
-  - `data/movies.json`
-  - `data/actors.json`
-  - `data/ratings.json`
-- Files are UTF-8, pretty-printed for diff-friendliness, with stable key ordering.
-- Schemas are defined in §5.5 and must match the API response shapes in §6.
+These steps get you to the *start of Session 1*. They do not build anything for you.
 
-### 5.2 Packaging
+### 0. Use the template
 
-- The JSON files under `data/` are copied into the container image at `/data` as part of `docker build` (e.g. `COPY data/ /data/`).
+On the GitHub repo page, click **Use this template → Create a new repository**. Do not fork — a template gives you a clean history, which is part of the experiment.
 
-### 5.3 Loading
+Clone your new repo locally.
 
-- On startup the service loads all files into in-memory immutable collections.
+### 1. Verify your toolchain
 
-### 5.4 Seed data
+You will need, at minimum:
+- `git`, `gh` (GitHub CLI), `make` (or your platform's equivalent)
+- Docker or Podman
+- A local Kubernetes — `k3d`, `kind`, or `minikube` are all fine
+- `kubectl`, `kustomize`
+- An AI assistant of your choice (Copilot, Claude, Cursor, Aider, plain ChatGPT — RPI is a workflow, not a tool)
 
-- A representative seed dataset (a few hundred movies / actors) is committed under `data/`.
-- A one-time `tools/` script (any language) may be provided to generate or transform seed data, but is not required at runtime.
+Do not install language toolchains yet. Picking the language is part of Session 1.
 
-### 5.5 Schema
+### 2. Read the four files above, in order
 
-Implementers must determine the JSON schema by inspecting the files under `data/`.
+Don't skim. The 25 minutes you spend here saves hours in Session 1.
 
-## 6. API Surface
+### 3. Plan your first session in the log — *before* you open an AI prompt
 
-All endpoints are read-only `GET`. JSON responses use `application/json; charset=utf-8`.
+Open [session-log.md](session-log.md). Fill in the **Frame** for Session 1:
+- **Goal:** what does done look like for this session?
+- **Out of scope:** what are you explicitly not doing?
+- **Failure condition:** what would make this session a failure?
 
-| Method | Path                          | Notes                                                                 |
-|--------|-------------------------------|-----------------------------------------------------------------------|
-| GET    | `/api/movies`                 | Query: `q`, `genre`, `year`, `rating`, `actorId`, `pageNumber`, `pageSize` |
-| GET    | `/api/movies/{id}`            | 404 on miss; id format `tt########`                                   |
-| GET    | `/api/actors`                 | Query: `q`, `pageNumber`, `pageSize`                                  |
-| GET    | `/api/actors/{id}`            | 404 on miss; id format `nm########`                                   |
-| GET    | `/api/genres`                 | Returns array of strings                                              |
-| GET    | `/healthz`                    | Plaintext (`pass` / `warn` / `fail`)                                  |
-| GET    | `/version`                    | Plaintext semver only, e.g. `1.2.3`                                   |
-| GET    | `/metrics`                    | Prometheus exposition                                                 |
-| GET    | `/readyz`                     | 200 only after dataset loaded                                         |
-| GET    | `/`                           | Redirects to `/swagger`                                               |
-| GET    | `/swagger`                    | Swagger UI for the OpenAPI spec                                       |
-| GET    | `/swagger/v1/swagger.json`    | OpenAPI 3 document                                                    |
+Suggested Session 1 goal: **"Choose stack + ship `/version` and `/healthz` end-to-end on local k3s, tagged `0.1.0`."** That is a real session — research the stack, plan the smallest end-to-end slice, fit-check it, implement, review, tag. Do not start broader.
 
-Validation rules (must return HTTP 400 on violation):
+You may pick a different Session 1 — but write it in the log first and defend the frame.
 
-- `pageNumber` ∈ [1, 10000] (default: `1` when omitted)
-- `pageSize` ∈ [1, 1000] (default: `25` when omitted)
-- `year` - examine data
-- `rating` - examine data
-- `q` length ∈ [2, 20] when present
-- `actorId` matches `^nm\d{5,9}$`; `movieId` matches `^tt\d{5,9}$`
+### 4. Run the RPI cycle for Session 1
 
-### 6.1 `/version` response
+For the prompts and the 10-step inner loop, see [METHODOLOGY.md → Your Inner Loop, Step by Step](METHODOLOGY.md#your-inner-loop-step-by-step).
 
-`GET /version` returns `200 OK` with `Content-Type: text/plain; charset=utf-8` and a body containing **only** the semver string of the running build, with no surrounding whitespace, JSON, or trailing newline beyond a single `\n`. Example body:
+**Critical**: do not skip the **fit check** between Plan and Implement. It is the only moment with enough evidence to cut scope honestly. If you skip it once, note it in the session log — that is data.
 
-```
-1.2.3
-```
+### 5. Close the session
 
-- The endpoint must respond `200` even before the dataset has finished loading (it does not depend on `/readyz`).
+Tests green → FF-merge → tag → fill in the close fields in [session-log.md](session-log.md) → write your one-paragraph summary. Do not start Session 2 in the same sitting.
 
-## 7. Observability
+### 6. Repeat until §14 is green and you tag `1.0.0`
 
-### 7.1 Metrics (Prometheus)
+---
 
-Exposed at `/metrics` in Prometheus text exposition format. Implementers should use the idiomatic Prometheus client library for their language.
+## Submitting your run
 
-### 7.2 Structured logging
+See [EXPERIMENT.md → How to Submit Your Run](EXPERIMENT.md#how-to-submit-your-run). Short version: comment on the [submissions tracking issue](https://github.com/context-first/core/issues/6) with your repo link, session count, time-to-1.0.0, and a link to your `RETRO.md`.
 
-- Logs written to **stdout** as one JSON object per line.
-- Levels: `debug`, `info`, `warn`, `error`. Configurable via `MOVIES_LOG_LEVEL` (default `info`).
-- No PII; query strings are logged but request bodies are not (service is GET-only).
-- Log schema is language-agnostic — any library is acceptable as long as the field names match.
+---
 
-### 7.3 Grafana dashboard
+## Honest run vs. polished run
 
-- Provisioned automatically
-- A `prometheus` datasource is provisioned automatically
-- Anonymous viewer access enabled for local dev; admin password set via env in dev overlay only.
+This experiment values **honest** runs over polished ones. We learn nothing from a participant who:
+- Pre-built scaffolding off-record and started the clock at "session 1"
+- Skipped the fit check and quietly cut scope inside Implement
+- Backfilled the session log from memory at the end
+- Edited timestamps to look more disciplined than they were
 
-## 8. Kubernetes Manifests
+Drift, blown fit checks, abandoned sessions, and re-frames are **valuable signal**. Log them honestly. The retro is where they pay off.
 
-Every deployable component (movies-api, Prometheus, Grafana, and any future addition) is delivered exclusively as Kubernetes manifests managed by **Kustomize** (`base/` + `overlays/`). Helm charts are out of scope and must not be added.
+---
 
-### 8.1 movies-api Deployment requirements
+## License
 
-- `livenessProbe`: `GET /healthz`
-- `readinessProbe`: `GET /readyz`
-- `resources.requests`: 100m CPU, 128Mi memory
-- `resources.limits`: 500m CPU, 512Mi memory
-- `securityContext`: non-root (uid 1000), read-only root FS, drop ALL caps, no privilege escalation
-- Container listens on port 8080 (api + `/metrics`); split to 9090 if the implementation prefers a separate metrics port.
-- Prometheus is deployed and managed by the **Prometheus Operator**; metrics are scraped via a `ServiceMonitor` (`movies-servicemonitor.yaml`). Plain `prometheus.io/scrape` pod/service annotations are not used and must not be relied on.
-
-## 9. Build & Packaging
-
-- Single multi-stage `Dockerfile` producing a minimal runtime image (distroless or Alpine equivalent for the chosen language).
-- Image runs as a **non-root** user.
-- Build/test commands are exposed via the language's idiomatic tooling
-- A `Makefile` is optional
-- full automation of the cluster bring-up is **not** required.
-- A `devcontainer.json` is encouraged but not required.
-
-### 9.1 Local dev loop (documented in README)
-
-The README must walk a new contributor through the following steps. They may be wrapped in scripts or `make` targets, but each step must be runnable on its own from the command line.
-
-## 10. Testing & Benchmarks
-
-### 10.1 Unit tests
-
-- Idiomatic unit-test framework for the chosen language. Cover:
-- Coverage target: ≥ 80% line coverage on data and HTTP layers.
-
-### 10.2 Integration tests
-
-- In-process HTTP tests against a known dataset
-
-### 10.3 End-to-end / contract tests
-
-- A validation suite executed against the in-cluster service as part of the inner-loop dev process (§12).
-- Suite must cover every endpoint in §6 plus negative cases for each validation rule.
-
-### 10.4 Benchmarks
-
-- Performance targets:
-  - p95 `/api/movies` < 50 ms in-cluster
-  - p95 `/api/movies/{id}` < 10 ms
-  - Sustained 500 RPS on a single 500m-CPU pod with < 1% error rate
-
-## 11. Configuration
-
-Config is sourced from three layers, listed in **increasing** precedence (later layers override earlier ones):
-
-1. **Built-in defaults** (column below).
-2. **Environment variables** (12-factor); no on-disk config files required at runtime.
-3. **Command-line flags** passed to the binary.
-
-Each setting has all three forms. Flag names are the kebab-case equivalent of the env var with the `MOVIES_` prefix dropped.
-
-| Env var                       | CLI flag                  | Default       | Purpose                                |
-|-------------------------------|---------------------------|---------------|----------------------------------------|
-| `MOVIES_DATA_DIR`             | `--movies-data-dir`       | `/data`       | Where data files are mounted           |
-| `MOVIES_LOG_LEVEL`            | `--movies-log-level`      | `info`        | Minimum log level                      |
-| `MOVIES_PORT`                 | `--movies-port`           | `8080`        | HTTP listen port                       |
-
-Additional rules:
-
-- Boolean flags accept `true`/`false`, `1`/`0`, `yes`/`no` (case-insensitive).
-- Unknown flags or invalid values cause the process to exit non-zero before the HTTP listener starts.
-- `--help` / `-h` prints all flags, their env-var equivalents, defaults, and current effective values, then exits 0.
-- The effective configuration (with secret values redacted) is logged once at `info` level on startup.
-
-## 12. Inner-Loop Dev Process
-
-The contract is a **repeatable, fully local inner loop** that any contributor can execute on their workstation against the local k3s/k3d cluster from §9.1. The loop must be runnable end-to-end in a few minutes and produce reproducible results.
-
-For each iteration:
-
-1. **Make a change** to source, manifests, or data files.
-2. **Bump the version**
-3. **Build the image**
-4. **Deploy the new version**
-5. **Verify the version is live**
-6. **Run validation tests**
-7. **Inspect metrics on the Grafana dashboard**
-8. **Iterate**
-
-Requirements:
-
-- The README documents every command in this loop verbatim. A fresh clone on a clean machine must reach a successful step 7 by following only the README.
-- Validation suites and the dashboard JSON live in the repo and are versioned alongside the code.
-- The loop has no external network dependencies beyond pulling base images and language toolchains.
-
-## 13. Security
-
-- Non-root container, read-only root FS, no Linux capabilities, no privilege escalation.
-- NetworkPolicy: movies-api ingress only from the Ingress controller and Prometheus pod.
-- No secrets are expected at runtime (data files are public catalog data). If a secret becomes necessary (e.g. Grafana admin password, OTLP auth token), it must be delivered via a native Kubernetes `Secret` referenced by `envFrom`/`valueFrom.secretKeyRef` or a projected volume — never baked into images, ConfigMaps, or repo files.
-- Dependency scanning via the language's standard auditor (run locally as part of the inner loop).
-
-## 14. Acceptance Criteria
-
-- [ ] Following the documented dev-loop steps in §9.1 brings up movies-api + Prometheus + Grafana on a fresh local k3s cluster.
-- [ ] All endpoints in §6 respond per the contract; baseline + benchmark Web Validate suites pass.
-- [ ] `/metrics` exposes all metrics in §7.1 with the specified names and labels.
-- [ ] Logs are valid JSON (one object per line) with all required fields in §7.2.
-- [ ] Grafana dashboard auto-provisions and shows live data from Prometheus.
-- [ ] Container image runs as non-root with a read-only root FS.
-- [ ] The inner-loop dev process in §12 runs end-to-end on a clean machine: build new version → deploy to local k3s → `/version` returns the new semver → validation tests pass → the test run is visible on the Grafana dashboard.
+[LICENSE](LICENSE). Your fork is yours; we ask only that you make it public so others can read your session log.

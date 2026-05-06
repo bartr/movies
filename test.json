@@ -1,7 +1,7 @@
 {
   "requests": [
     {"path":"/","validation":{"contentType":"text/html"}},
-    {"path":"/swagger/helium.json"},
+    {"path":"/swagger/movies.json"},
     {"path":"/robots.txt","validation":{"contentType":"text/plain","length":48}},
     {"path":"/healthz","validation":{"contentType":"text/plain"}},
     {"path":"/readyz","validation":{"contentType":"text/plain"}},
