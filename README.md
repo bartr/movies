@@ -10,9 +10,9 @@ You are participating in an experiment to test whether a deliberate session-base
 
 | # | File | What it gives you | Time |
 |---|---|---|---|
-| 1 | [EXPERIMENT.md](EXPERIMENT.md) | The hypothesis, ground rules, what we measure, how to submit | 5 min |
-| 2 | [METHODOLOGY.md](METHODOLOGY.md) | Sessions + RPI + the fit check, with a worked example | 10 min |
-| 3 | [spec.md](spec.md) | The Movies API spec — your build target | 10 min |
+| 1 | [EXPERIMENT.md](docs/EXPERIMENT.md) | The hypothesis, ground rules, what we measure, how to submit | 5 min |
+| 2 | [METHODOLOGY.md](docs/METHODOLOGY.md) | Sessions + RPI + the fit check, with a worked example | 10 min |
+| 3 | [spec.md](docs/spec.md) | The Movies API spec — your build target | 10 min |
 | 4 | [session-log.md](session-log.md) | The log template you'll fill in as you go | skim |
 
 If you skip step 1 or 2, you'll do the experiment wrong and your data won't count. The whole point is the methodology.
@@ -21,9 +21,9 @@ If you skip step 1 or 2, you'll do the experiment wrong and your data won't coun
 
 ## What "done" looks like
 
-A `1.0.0` tag on your fork where every checkbox in [spec.md §14](spec.md#14-acceptance-criteria) is green on a freshly-wiped local k3s cluster.
+A `1.0.0` tag on your fork where every checkbox in [spec.md §14](docs/spec.md#14-acceptance-criteria) is green on a freshly-wiped local k3s cluster.
 
-Expect this to take **6–10 sessions of 90–120 minutes each**, ~12–20 hours of focused time over 2–4 weeks. If your first session goes 5 hours, you skipped the fit check. Re-read [METHODOLOGY.md](METHODOLOGY.md).
+Expect this to take **6–10 sessions of 90–120 minutes each**, ~12–20 hours of focused time over 2–4 weeks. If your first session goes 5 hours, you skipped the fit check. Re-read [METHODOLOGY.md](docs/METHODOLOGY.md).
 
 ---
 
@@ -65,7 +65,7 @@ You may pick a different Session 1 — but write it in the log first and defend 
 
 ### 4. Run the RPI cycle for Session 1
 
-For the prompts and the 10-step inner loop, see [METHODOLOGY.md → Your Inner Loop, Step by Step](METHODOLOGY.md#your-inner-loop-step-by-step).
+For the prompts and the 10-step inner loop, see [METHODOLOGY.md → Your Inner Loop, Step by Step](docs/METHODOLOGY.md#your-inner-loop-step-by-step).
 
 **Critical**: do not skip the **fit check** between Plan and Implement. It is the only moment with enough evidence to cut scope honestly. If you skip it once, note it in the session log — that is data.
 
@@ -79,7 +79,7 @@ Tests green → FF-merge → tag → fill in the close fields in [session-log.md
 
 ## Submitting your run
 
-See [EXPERIMENT.md → How to Submit Your Run](EXPERIMENT.md#how-to-submit-your-run). Short version: comment on the [submissions tracking issue](https://github.com/context-first/core/issues/6) with your repo link, session count, time-to-1.0.0, and a link to your `RETRO.md`.
+See [EXPERIMENT.md → How to Submit Your Run](docs/EXPERIMENT.md#how-to-submit-your-run). Short version: comment on the [submissions tracking issue](https://github.com/context-first/core/issues/6) with your repo link, session count, time-to-1.0.0, and a link to your `RETRO.md`.
 
 ---
 

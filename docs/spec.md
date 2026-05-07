@@ -63,16 +63,16 @@ as long as every requirement in this document is met.
 
 ### 5.1 Storage format
 
-- Source of truth: JSON files committed to the repo under `data/`:
-  - `data/movies.json`
-  - `data/actors.json`
-  - `data/ratings.json`
+- Source of truth: JSON files committed to the repo under `src/data/`:
+  - `src/data/movies.json`
+  - `src/data/actors.json`
+  - `src/data/ratings.json`
 - Files are UTF-8, pretty-printed for diff-friendliness, with stable key ordering.
 - Schemas are defined in §5.5 and must match the API response shapes in §6.
 
 ### 5.2 Packaging
 
-- The JSON files under `data/` are copied into the container image at `/data` as part of `docker build` (e.g. `COPY data/ /data/`).
+- The JSON files under `src/data/` are copied into the container image at `/data` as part of `docker build` (e.g. `COPY src/data/ /data/`).
 
 ### 5.3 Loading
 
@@ -80,12 +80,12 @@ as long as every requirement in this document is met.
 
 ### 5.4 Seed data
 
-- A representative seed dataset (a few hundred movies / actors) is committed under `data/`.
+- A representative seed dataset (a few hundred movies / actors) is committed under `src/data/`.
 - A one-time `tools/` script (any language) may be provided to generate or transform seed data, but is not required at runtime.
 
 ### 5.5 Schema
 
-Implementers must determine the JSON schema by inspecting the files under `data/`.
+Implementers must determine the JSON schema by inspecting the files under `src/data/`.
 
 ## 6. API Surface
 
