@@ -16,14 +16,62 @@ framework are **deliberately unspecified** — any stack (Go + chi, Rust + axum,
 Python + FastAPI, TypeScript + Fastify, .NET, etc.) is acceptable
 as long as every requirement in this document is met.
 
+### 1.1 A note on what this spec deliberately does *not* tell you
+
+This spec is intentionally incomplete. That is not an oversight — it is the
+experiment.
+
+The baseline being replicated (a 4-person team, 26 weeks, ~2020) started with
+*less* information than this document gives you. They had no schema, no
+canonical data shape, no list of metric names, no panel layout, no
+pre-negotiated query semantics, and no agreement on what "observable" meant
+in practice. They figured all of it out as they went — and a meaningful share
+of those 26 weeks was spent on exactly that figuring-out.
+
+Several things in this spec are therefore left to your judgment on purpose:
+
+- **Data schema.** §5 tells you the files exist and where they live. The
+  shapes of the JSON objects are for you to read and decide how to model.
+- **Query semantics.** §6 lists the query parameters. What `q` matches on,
+  whether filters combine as AND or OR, default sort order, and tie-breaking
+  are design decisions, not spec gaps.
+- **Metric names, labels, and histogram buckets.** §7.1 requires Prometheus
+  metrics. *Which* metrics, with *what* labels and *what* bucket boundaries,
+  is part of the work. The choices you make are part of the evidence.
+- **Dashboard panel set.** §7.3 requires a provisioned Grafana dashboard. The
+  panels, queries, and layout are yours to design against the metrics you
+  chose to emit.
+- **Inner-loop ergonomics.** §12 defines *what* the inner loop must do.
+  *How* it is wrapped (scripts, `make`, `just`, `task`, language-native
+  tooling) is your call.
+- **The HTTP replay / load-test tool.** §10.3 and §10.4 require an
+  in-repo tool that drives the API end-to-end and produces the numbers
+  for §10.4. You build that tool. Off-the-shelf tools (k6, Locust,
+  Vegeta, hey, wrk, JMeter, Gatling) are **out of scope**. The 2020
+  baseline built theirs; building yours is part of the work being
+  measured.
+
+If you find yourself wishing the spec answered one of these for you, that is
+the methodology working as intended. Research it, make a defensible call,
+record the decision in the session log, and move on. The hypothesis under
+test is that **sessions + an AI inner loop close the discovery gap that used
+to take a team a quarter** — not that you can implement a fully-specified
+contract quickly. Specifying the answers would measure typing speed, not
+methodology.
+
+What this spec *does* fix — the public contract surface (§6 paths and status
+codes), the deployment shape (§4, §8), the performance bar (§10.4), the
+acceptance checklist (§14) — is what makes runs comparable across
+participants. Everything else is the experiment.
+
 ## 2. Goals
 
 - Implement the public REST contract (paths, query params, status codes, JSON shapes) defined in §6.
 - Run on a single-node **k3s** cluster (and any conformant Kubernetes: k3d, kind, minikube, AKS, EKS, GKE).
 - Serve data from versioned local JSON files baked into the container image at `/data` during `docker build`.
 - First-class observability: Prometheus metrics, structured JSON logs, Grafana dashboards.
-- Reproducible local dev loop: bringing up the full stack on a local k3s/k3d cluster is documented step-by-step in the implementation README (see §9.1).
-- Provide a Web Validate-compatible end-to-end test suite that runs against the in-cluster service as part of the inner-loop dev process (§12).
+- Reproducible local dev loop: bringing up the full stack on a local k3s/k3d cluster is documented step-by-step in the implementation README (see §12).
+- Provide an HTTP replay tool end-to-end test suite that runs against the in-cluster service as part of the inner-loop dev process (§12).
 
 ## 3. Non-Goals
 
@@ -167,10 +215,6 @@ Every deployable component (movies-api, Prometheus, Grafana, and any future addi
 - full automation of the cluster bring-up is **not** required.
 - A `devcontainer.json` is encouraged but not required.
 
-### 9.1 Local dev loop (documented in implementation README)
-
-The implementation README must walk a new contributor through the following steps. They may be wrapped in scripts or `make` targets, but each step must be runnable on its own from the command line.
-
 ## 10. Testing & Benchmarks
 
 ### 10.1 Unit tests
@@ -186,6 +230,8 @@ The implementation README must walk a new contributor through the following step
 
 - A validation suite executed against the in-cluster service as part of the inner-loop dev process (§12).
 - Suite must cover every endpoint in §6 plus negative cases for each validation rule.
+- The validation suite is driven by an **in-repo HTTP replay tool that you build as part of this project.** Off-the-shelf load-test or HTTP-replay tools (k6, Locust, Vegeta, hey, wrk, JMeter, Gatling, etc.) are **out of scope** — do not use them. The replay tool, its scenario/case format, and its assertion model are part of the deliverable. The same tool drives the §10.4 benchmark numbers; one tool, two modes (functional contract assertions and sustained load).
+- Language and design of the replay tool are your call — it does not need to be the same language as the API. A small CLI that reads scenario files, issues requests, asserts status + JSON, and reports pass/fail and latency is sufficient.
 
 ### 10.4 Benchmarks
 
@@ -193,6 +239,7 @@ The implementation README must walk a new contributor through the following step
   - p95 `/api/movies` < 50 ms in-cluster
   - p95 `/api/movies/{id}` < 10 ms
   - Sustained 500 RPS on a single 500m-CPU pod with < 1% error rate
+- Numbers are produced by the same in-repo replay tool from §10.3 driven in a sustained-load mode. Off-the-shelf load generators are out of scope (see §10.3).
 
 ## 11. Configuration
 
@@ -219,7 +266,7 @@ Additional rules:
 
 ## 12. Inner-Loop Dev Process
 
-The contract is a **repeatable, fully local inner loop** that any contributor can execute on their workstation against the local k3s/k3d cluster from §9.1. The loop must be runnable end-to-end in a few minutes and produce reproducible results.
+The contract is a **repeatable, fully local inner loop** that any contributor can execute on their workstation against a local k3s/k3d cluster. The loop must be runnable end-to-end in a few minutes and produce reproducible results.
 
 For each iteration:
 
@@ -247,8 +294,8 @@ Requirements:
 
 ## 14. Acceptance Criteria
 
-- [ ] Following the documented dev-loop steps in §9.1 brings up movies-api + Prometheus + Grafana on a fresh local k3s cluster.
-- [ ] All endpoints in §6 respond per the contract; baseline + benchmark Web Validate suites pass.
+- [ ] Following the documented dev-loop steps in §12 brings up movies-api + Prometheus + Grafana on a fresh local k3s cluster.
+- [ ] All endpoints in §6 respond per the contract; the in-repo replay tool's baseline (functional) and benchmark (sustained-load) modes both pass against a freshly-deployed cluster.
 - [ ] `/metrics` exposes all metrics in §7.1 with the specified names and labels.
 - [ ] Logs are valid JSON (one object per line) with all required fields in §7.2.
 - [ ] Grafana dashboard auto-provisions and shows live data from Prometheus.
