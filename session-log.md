@@ -6,6 +6,8 @@
 
 Copy the **Session Template** block below for each new session. Fill in the frame *before* you start, the close fields *after* you tag.
 
+**Time-logging rule:** write **Start time** the moment the frame is done, and **End time** the moment the close ritual is done. Do **not** estimate after the fact. During the close ritual itself, cross-check against git (first session commit ≈ start; merge/tag timestamp ≈ end) and reconcile any drift now — not at release time.
+
 ---
 
 ## Session Template
@@ -17,7 +19,7 @@ Copy the **Session Template** block below for each new session. Fill in the fram
 - Out of scope: what am I explicitly not doing today?
 - Failure condition: what would make this session a failure?
 
-**Start time:** HH:MM
+**Start time:** HH:MM  *(write this the instant the frame is done — not later)*
 
 **RPI cycle**
 - Research: `.copilot-tracking/YYYY-MM-DD-<topic>-research.md`
@@ -39,9 +41,12 @@ Copy the **Session Template** block below for each new session. Fill in the fram
 - [ ] FF-merge (`gh pr merge --rebase --delete-branch`)
 - [ ] Tag (`git tag X.Y.Z && git push origin X.Y.Z`)
 - [ ] Repo memory updated
+- [ ] **End time written the moment the ritual completes** (not estimated later)
+- [ ] **Git timestamp cross-check done now** (first session commit vs. Start; merge/tag vs. End — reconcile any drift here, not at release time)
+- [ ] One-bullet entry appended to [`RETRO.md`](RETRO.md) for this session
 - [ ] Next session starter (one sentence — where does the next session begin?):
 
-**End time:** HH:MM
+**End time:** HH:MM  *(write this the instant the ritual is complete — not later)*
 **Total focus minutes:**
 **Tag shipped:** X.Y.Z
 
@@ -85,6 +90,9 @@ What I built · what I decided · what matters for next time.
 - [ ] FF-merge
 - [ ] Tag
 - [ ] Repo memory updated
+- [ ] End time written in the moment
+- [ ] Git timestamp cross-check done now
+- [ ] One-bullet entry appended to [`RETRO.md`](RETRO.md)
 - [ ] Next session starter:
 
 **End time:**

@@ -29,8 +29,11 @@ When you feel the urge to pull a thread outside your frame, write it in the *par
 - Tag: `git tag X.Y.Z && git push origin X.Y.Z`
 - Update repo memory (`CLAUDE.md`, `.github/copilot-instructions.md`, etc. — whatever your AI reads)
 - One paragraph in [`session-log.md`](session-log.md): what you built, what you decided, where the next session starts.
+- Append one bullet to [`RETRO.md`](../RETRO.md) — what surprised you this session, what you'd do differently. One line is fine.
 
 That paragraph is the compounding mechanism. Without it, each session starts cold.
+
+**Time-logging rule.** Write **Start time** into [`session-log.md`](session-log.md) the moment you finish the frame, and write **End time** the moment you finish the close ritual — not later, not from memory. As a cross-check *during* the close ritual (not at release time), compare against git: the first commit on your session branch ≈ start, the merge/tag timestamp ≈ end. If they disagree by more than a few minutes, fix the log now while you can still remember.
 
 For depth: [sessions-not-stories.md](https://github.com/context-first/core/blob/main/methodology/sessions-not-stories.md).
 
@@ -121,7 +124,7 @@ For each session:
 7. **Implement** — *"Implement only — execute the plan task by task. Verify after each. Record changes in `.copilot-tracking/<today>-<topic>-changes.md`."*
 8. **New chat.** Open plan + changes log.
 9. **Review** — *"Review only — validate the implementation against the research and plan. Run lint/build/test. Identify follow-ups. Save to `.copilot-tracking/<today>-<topic>-review.md`."*
-10. **Close ritual** — green tests, FF-merge, tag, repo memory, paragraph + next-session starter in [`session-log.md`](session-log.md).
+10. **Close ritual** — green tests, FF-merge, tag, repo memory, paragraph + next-session starter in [`session-log.md`](session-log.md), one-bullet append to [`RETRO.md`](../RETRO.md), Start/End times written in the moment, and a git-timestamp cross-check before you walk away.
 
 ## When to Skip
 

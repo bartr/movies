@@ -71,7 +71,9 @@ For the prompts and the 10-step inner loop, see [METHODOLOGY.md → Your Inner L
 
 ### 5. Close the session
 
-Tests green → FF-merge → tag → fill in the close fields in [session-log.md](session-log.md) → write your one-paragraph summary. Do not start Session 2 in the same sitting.
+Tests green → FF-merge → tag → fill in the close fields in [session-log.md](session-log.md) → write your one-paragraph summary → append one bullet to `RETRO.md`. Create `RETRO.md` *now*, in Session 1, not later — the strongest lessons get lost if you wait until release. Do not start Session 2 in the same sitting.
+
+**Time-logging rule:** write Start time the moment the frame is done and End time the moment the close ritual is done. Cross-check against git timestamps (first session commit, merge, tag) inside the close ritual itself — not at release time.
 
 ### 6. Repeat until §14 is green and you tag `1.0.0`
 

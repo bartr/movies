@@ -36,10 +36,11 @@ You track these by simply **using the repo as designed.** No extra reporting too
 | Signal | Where it lives | Why we care |
 |---|---|---|
 | **Session count** | git tags (`0.1.0`, `0.2.0`, …, `1.0.0`) | The headline number. How many sessions to ship the bar? |
-| **Session duration** | timestamps in [`session-log.md`](session-log.md) (frame time → close time) | Did sessions stay in the 90–120 minute bound? |
+| **Session duration** | timestamps in [`session-log.md`](../session-log.md) — **Start written at frame, End written at close ritual** (no post-hoc estimates), cross-checked against git in the close ritual itself | Did sessions stay in the 90–120 minute bound? |
 | **Fit-check decisions** | recorded in each session block of [`session-log.md`](session-log.md) | Were plans realistic? Where did frames over-promise? |
 | **Drift incidents** | "drift moments" field per session in [`session-log.md`](session-log.md) | Was scope held? |
 | **RPI artifacts** | `.copilot-tracking/` | Evidence that Research happened before Plan; Plan before Implement. |
+| **Per-session retro bullets** | [`RETRO.md`](../RETRO.md) — one bullet appended per session in the close ritual, opened at Session 1 | Captures lessons while they are fresh, not reconstructed at release time. |
 | **Stack chosen** | first session's research artifact | For cross-run comparison. |
 | **Time-to-1.0.0** | git: tag date of `1.0.0` minus first commit | The summary metric. |
 | **§14 checklist** | checked in your final session log paragraph | Does the bar actually pass? |
@@ -59,7 +60,7 @@ When you tag `1.0.0`:
    - AI assistant used
    - Link to your `RETRO.md`
    - One-liner: where the methodology helped, where it got in the way
-3. Write a short retro in your own repo's `RETRO.md`. The honest one. What broke, what surprised you, what you'd do differently. Even a half-page is valuable.
+3. Finalize your repo's `RETRO.md`. **Open this file at Session 1, not Session 10**, and append one bullet per session in the close ritual as you go. The strongest lessons happen mid-experiment; reconstructing them at the end loses them. At submission time, all you should need is a short top section that synthesizes the bullets you already have. Even a half-page is valuable — but only if it was written *as you went*.
 
 ## Ground Rules
 
